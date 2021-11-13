@@ -65,30 +65,9 @@ const Info = styled.div`
 export default props => {
   const [showEditor, setShowEditor] = useState(false);
 
-  const playAudio = async () => {
-    const result = await Predictions.convert({
-      textToSpeech: {
-        source: {
-          text: props.text
-        }
-      }
-    });
 
-    const audioCtx = new AudioContext();
-    const source = audioCtx.createBufferSource();
 
-    audioCtx.decodeAudioData(
-      result.audioStream,
-      buffer => {
-        source.buffer = buffer;
-        source.connect(audioCtx.destination);
-        source.start(0);
-      },
-      error => console.log(error)
-    );
-  };
-
-  return (
+ return (
     <Note>
       <Info>
         <Title>{props.title}</Title>
@@ -96,9 +75,6 @@ export default props => {
       </Info>
       <Divider />
       <NoteActions>
-        <Icon onClick={() => playAudio()}>
-          <FaPlay />
-        </Icon>
         <Icon onClick={() => setShowEditor(true)}>
           <FaRegEdit />
         </Icon>

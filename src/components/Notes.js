@@ -33,28 +33,41 @@ export default () => {
   return (
     <Container>
         <form>
-            <label for="framework">Select one or more JS Frameworks:</label>
-            <select id="framework" multiple>
-                {notes.map(note => (
-                  <Note
-                    key={note.id}
-                    {...note}
-                    onSaveChanges={async values => {
-                      const result = await API.graphql(
-                        graphqlOperation(updateNote, {
-                          input: {
-                            ...note,
-                            ...values
-                          }
-                        })
-                      );
+            <label for="notes">Select one or more JS Frameworks:</label>
+            <select id="notes" multiple>
+            {notes.map(note => (
+              <Note
+                key={note.id}
+                {...note}
+                onSaveChanges={async values => {
+                  const result = await API.graphql(
+                  graphqlOperation(updateNote, {
+                  input: {
+                  ...note,
+                  ...values
+                }
+              })
+            );
 
-                      setNotes(
-                        notes.map(n => {
-                          return n.id === note.id ? result.data.updateNote : n;
-                        })
-                      );
-                    }}
+            setNotes(
+              notes.map(n => {
+                return n.id === note.id ? result.data.updateNote : n;
+              })
+            );
+          }}
+          onDelete={async () => {
+            const result = await API.graphql(
+              graphqlOperation(deleteNote, {
+                input: {
+                  id: note.id
+                }
+              })
+            );
+
+            setNotes(notes.filter(n => n.id !== note.id));
+          }}
+        />
+      ))}
             </select>
             <button id="btn">Get Selected Frameworks</button>
         </form>

@@ -33,7 +33,6 @@ export default () => {
   return (
     <Container>
         <form>
-            <label for="notes">Select one or more JS Frameworks:</label>
             <select id="notes" multiple>
             {notes.map(note => (
               <Note
@@ -69,7 +68,6 @@ export default () => {
         />
       ))}
             </select>
-            <button id="btn">Get Selected Frameworks</button>
         </form>
     </Container>
   );

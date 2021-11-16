@@ -36,7 +36,7 @@ const SignOutButton = styled(Button)`
 
 const StyledTabs = styled(Tabs)`
   padding-top: 80px;
-  display: flex;
+  display: 800px;
   flex-direction: column;
   height: calc(100vh - 80px);
 `;

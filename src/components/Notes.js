@@ -12,6 +12,24 @@ const Container = styled("div")`
   width: 100%;
 `;
 
+export default () => {
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      const result = await API.graphql(graphqlOperation(listNotes));
+
+      setNotes(
+        result.data.listNotes.items.sort((a, b) => {
+          if (a.updatedAt > b.updatedAt) return -1;
+          else return 1;
+        })
+      );
+    };
+
+    fetchNotes();
+  }, []);
+
   return (
     <Container>
       {notes.map(note => (
@@ -50,7 +68,6 @@ const Container = styled("div")`
     </Container>
   );
 };
-
 
 
  

@@ -12,36 +12,16 @@ const Container = styled("div")`
   width: 100%;
 `;
 
-export default () => {
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    const fetchNotes = async () => {
-      const result = await API.graphql(graphqlOperation(listNotes));
-
-      setNotes(
-        result.data.listNotes.items.sort((a, b) => {
-          if (a.updatedAt > b.updatedAt) return -1;
-          else return 1;
-        })
-      );
-    };
-
-    fetchNotes();
-  }, []);
-
   return (
     <Container>
-        <form>
-            <select id="notes" multiple>
-            {notes.map(note => (
-              <Note
-                key={note.id}
-                {...note}
-                onSaveChanges={async values => {
-                  const result = await API.graphql(
-                  graphqlOperation(updateNote, {
-                  input: {
+      {notes.map(note => (
+        <Note
+          key={note.id}
+          {...note}
+          onSaveChanges={async values => {
+            const result = await API.graphql(
+              graphqlOperation(updateNote, {
+                input: {
                   ...note,
                   ...values
                 }
@@ -67,8 +47,6 @@ export default () => {
           }}
         />
       ))}
-            </select>
-        </form>
     </Container>
   );
 };

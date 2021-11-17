@@ -29,75 +29,6 @@ const Container = styled("div")`
   width: 100%;
 `;
 
-
-
-export default () => {
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    const fetchNotes = async () => {
-      const result = await API.graphql(graphqlOperation(listNotes));
-
-      setNotes(
-        result.data.listNotes.items.sort((a, b) => {
-          if (a.updatedAt > b.updatedAt) return -1;
-          else return 1;
-        })
-      );
-    };
-
-    fetchNotes();
-  }, []);
-
-  return (
-    <Container>
-      {notes.map(note => (
-        <Note
-          key={note.id}
-          {...note}
-          onSaveChanges={async values => {
-            const result = await API.graphql(
-              graphqlOperation(updateNote, {
-                input: {
-                  ...note,
-                  ...values
-                }
-              })
-            );
-
-            setNotes(
-              notes.map(n => {
-                return n.id === note.id ? result.data.updateNote : n;
-              })
-            );
-          }}
-          onDelete={async () => {
-            const result = await API.graphql(
-              graphqlOperation(deleteNote, {
-                input: {
-                  id: note.id
-                }
-              })
-            );
-
-            setNotes(notes.filter(n => n.id !== note.id));
-          }}
-        />
-      ))}
-    </Container>
-  );
-};
-
-
-
-const Container2 = styled("div")`
-  margin: 16px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
-
 const pulse = keyframes`
   0% {
     transform: scale(1);
@@ -110,6 +41,7 @@ const pulse = keyframes`
 `;
 
 export default props => {
+  const [notes, setNotes] = useState([]);
   const [isRecording, setIsRecording] = useState(false);
   const [showRecordingEditor, setShowRecordingEditor] = useState(false);
   const [recordingText, setRecordingText] = useState("");
@@ -182,8 +114,57 @@ export default props => {
     setShowRecordingEditor(true);
   };
 
+  useEffect(() => {
+    const fetchNotes = async () => {
+      const result = await API.graphql(graphqlOperation(listNotes));
+
+      setNotes(
+        result.data.listNotes.items.sort((a, b) => {
+          if (a.updatedAt > b.updatedAt) return -1;
+          else return 1;
+        })
+      );
+    };
+
+    fetchNotes();
+  }, []);
+
   return (
-    <Container2>
+    <Container>
+      {notes.map(note => (
+        <Note
+          key={note.id}
+          {...note}
+          onSaveChanges={async values => {
+            const result = await API.graphql(
+              graphqlOperation(updateNote, {
+                input: {
+                  ...note,
+                  ...values
+                }
+              })
+            );
+
+            setNotes(
+              notes.map(n => {
+                return n.id === note.id ? result.data.updateNote : n;
+              })
+            );
+          }}
+          onDelete={async () => {
+            const result = await API.graphql(
+              graphqlOperation(deleteNote, {
+                input: {
+                  id: note.id
+                }
+              })
+            );
+
+            setNotes(notes.filter(n => n.id !== note.id));
+          }}
+        />
+      ))}
+
       <div
         css={css`
           position: relative;
@@ -264,7 +245,6 @@ export default props => {
           }}
         />
       )}
-    </Container2>
+    </Container>
   );
 };
- 

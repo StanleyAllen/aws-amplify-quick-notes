@@ -59,7 +59,7 @@ const Title = styled("h2")`
 `;
 
 export default props => (
-
+  <Dialog onDismiss={props.onDismiss}>
     <Title>{props.title ? "Edit Note" : "Create Note"}</Title>
     <Formik
       initialValues={{
@@ -115,5 +115,5 @@ export default props => (
         </form>
       )}
     </Formik>
-
+  </Dialog>
 );

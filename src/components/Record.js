@@ -1,196 +1,119 @@
-/** @jsx jsx */
-
-import React, { useState } from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import { Predictions } from "aws-amplify";
-import { keyframes, css, jsx } from "@emotion/core";
+import React from "react";
 import styled from "@emotion/styled";
-import {
-  FaMicrophone,
-  FaMicrophoneAlt,
-  FaMicrophoneAltSlash
-} from "react-icons/fa";
-import mic from "microphone-stream";
+import { Button } from "@rebass/emotion";
+import { Label, Input } from "@rebass/forms";
+import { Formik } from "formik";
 
-import RecordingEditor from "./Recording-Editor";
-import { createNote } from "../graphql/mutations";
+import Dialog from "./Dialog";
 
-const Container = styled("div")`
-  margin: 16px auto;
+const StyledButton = styled(Button)`
+  background-color: #74b49b;
+  cursor: pointer;
+`;
+
+const StyledLabel = styled(Label)`
+  color: #74b49b;
+  margin-bottom: 4px;
+`;
+
+const StyledInput = styled(Input)`
+  color: #74b49b;
+  border-radius: 3px;
+  background-color: #f4f9f4;
+`;
+
+const StyledTextarea = styled("textarea")`
+  color: #74b49b;
+  background-color: #f4f9f4;
+  width: 100%;
+  min-height: 80px;
+  border-radius: 3px;
+  resize: vertical;
+`;
+
+const FormInputs = styled("div")`
+  max-height: 450px;
+  overflow: scroll;
+  padding: 16px;
+  @media (max-height: 570px) {
+    max-height: 300px;
+  }
+  @media (max-height: 675px) {
+    max-height: 350px;
+  }
+`;
+
+const Actions = styled("div")`
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
+  margin-top: 24px;
 `;
 
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
+const InputContainer = styled("div")`
+  margin-bottom: 16px;
 `;
 
-export default props => {
-  const [isRecording, setIsRecording] = useState(false);
-  const [showRecordingEditor, setShowRecordingEditor] = useState(false);
-  const [recordingText, setRecordingText] = useState("");
-  const [isConverting, setIsConverting] = useState("");
-  const [micStream, setMicStream] = useState();
-  const [audioBuffer] = useState(
-    (function() {
-      let buffer = [];
-      function add(raw) {
-        buffer = buffer.concat(...raw);
-        return buffer;
-      }
-      function newBuffer() {
-        console.log("reseting buffer");
-        buffer = [];
-      }
+const Title = styled("h2")`
+  color: #74b49b;
+`;
 
-      return {
-        reset: function() {
-          newBuffer();
-        },
-        addData: function(raw) {
-          return add(raw);
-        },
-        getData: function() {
-          return buffer;
-        }
-      };
-    })()
-  );
+export default props => (
 
-  const startRecording = async () => {
-    const stream = await window.navigator.mediaDevices.getUserMedia({
-      video: false,
-      audio: true
-    });
-    const startMic = new mic();
+    <Title>{props.title ? "Edit Note" : "Create Note"}</Title>
+    <Formik
+      initialValues={{
+        title: props.title || "",
+        text: props.text
+      }}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        props.onSave({
+          title: values.title || `${values.text.substr(0, 20)}...`,
+          text: values.text
+        });
+        setSubmitting(false);
+        resetForm();
+        props.onDismiss();
+      }}
+    >
+      {({ values, handleSubmit, isSubmitting, handleChange }) => (
+        <form onSubmit={handleSubmit}>
+          <FormInputs>
+            <InputContainer>
+              <StyledLabel htmlFor="title">Title</StyledLabel>
+              <StyledInput
+                type="text"
+                name="title"
+                value={values.title}
+                onChange={handleChange}
+              />
+            </InputContainer>
 
-    startMic.setStream(stream);
-    startMic.on("data", chunk => {
-      var raw = mic.toRaw(chunk);
-      if (raw == null) {
-        return;
-      }
-      audioBuffer.addData(raw);
-    });
+            <InputContainer>
+              <StyledLabel htmlFor="text">Note</StyledLabel>
+              <StyledTextarea
+                name="text"
+                value={values.text}
+                onChange={handleChange}
+              />
+            </InputContainer>
+          </FormInputs>
 
-    setMicStream(startMic);
-    setIsRecording(true);
-  };
-
-  const stopRecording = async () => {
-    micStream.stop();
-    setIsRecording(false);
-    setIsConverting(true);
-
-    const buffer = audioBuffer.getData();
-    const result = await Predictions.convert({
-      transcription: {
-        source: {
-          bytes: buffer
-        }
-      }
-    });
-
-    setMicStream(null);
-    audioBuffer.reset();
-    setRecordingText(result.transcription.fullText);
-    setIsConverting(false);
-    setShowRecordingEditor(true);
-  };
-
-  return (
-    <Container>
-      <div
-        css={css`
-          position: relative;
-          justify-content: center;
-          align-items: center;
-          width: 120px;
-          height: 120px;
-        `}
-      >
-        <div
-          css={[
-            css`
-              width: 100%;
-              height: 100%;
-              top: 0;
-              left: 0;
-              position: absolute;
-
-              border-radius: 50%;
-              background-color: #74b49b;
-            `,
-            isRecording || isConverting
-              ? css`
-                  animation: ${pulse} 1.5s ease infinite;
-                `
-              : {}
-          ]}
-        />
-        <div
-          css={css`
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            position: absolute;
-            border-radius: 50%;
-            background-color: #74b49b;
-            display: flex;
-            cursor: pointer;
-          `}
-          onClick={() => {
-            if (!isRecording) {
-              startRecording();
-            } else {
-              stopRecording();
-            }
-          }}
-        >
-          {isConverting ? (
-            <FaMicrophoneAltSlash
-              size={50}
-              style={{ margin: "auto" }}
-              color="#f4f9f4"
-            />
-          ) : isRecording ? (
-            <FaMicrophone
-              size={50}
-              style={{ margin: "auto" }}
-              color="#f4f9f4"
-            />
-          ) : (
-            <FaMicrophoneAlt
-              size={50}
-              style={{ margin: "auto" }}
-              color="#f4f9f4"
-            />
-          )}
-        </div>
-      </div>
-      {showRecordingEditor && (
-        <RecordingEditor
-          text={recordingText}
-          onDismiss={() => {
-            setShowRecordingEditor(false);
-          }}
-          onSave={async data => {
-            await API.graphql(graphqlOperation(createNote, { input: data }));
-            props.setTabIndex(0);
-          }}
-        />
+          <Actions>
+            <StyledButton
+              onClick={() => {
+                props.onDismiss();
+              }}
+              style={{ marginRight: "8px" }}
+            >
+              Cancel
+            </StyledButton>
+            <StyledButton type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Save"}
+            </StyledButton>
+          </Actions>
+        </form>
       )}
-    </Container>
-  );
-};
+    </Formik>
+
+);

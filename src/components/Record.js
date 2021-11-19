@@ -59,7 +59,7 @@ const Title = styled("h2")`
 `;
 
 export default props => (
-  <Container onDismiss={props.onDismiss}>
+  <Container>
     <Title>{props.title ? "Edit Note" : "Create Note"}</Title>
     <Formik
       initialValues={{

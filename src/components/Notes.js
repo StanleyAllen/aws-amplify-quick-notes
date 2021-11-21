@@ -23,22 +23,7 @@ import { createNote } from "../graphql/mutations";
 
 
 
-const Container = styled("div")`
-  max-width: 800px;
-  margin: 16px auto;
-  width: 100%;
-`;
 
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-`;
 
 export default props => {
   const [notes, setNotes] = useState([]);
@@ -73,6 +58,23 @@ export default props => {
     })()
   );
 
+  const Container = styled("div")`
+  max-width: 800px;
+  margin: 16px auto;
+  width: 100%;
+`;
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+`;
+  
   const startRecording = async () => {
     const stream = await window.navigator.mediaDevices.getUserMedia({
       video: false,

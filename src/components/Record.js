@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@rebass/emotion";
 import { Label, Input } from "@rebass/forms";

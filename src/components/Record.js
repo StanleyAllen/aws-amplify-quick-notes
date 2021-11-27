@@ -169,7 +169,7 @@ const RecordComponent = props => {
   return (
     <Container>
 
-      {showRecordingEditor && (
+      
         <RecordingEditor
           text={recordingText}
           onDismiss={() => {
@@ -180,7 +180,7 @@ const RecordComponent = props => {
             props.setTabIndex(0);
           }}
         />
-      )}
+      
     </Container>
   );
 };

@@ -20,12 +20,11 @@ import RecordingEditor from "./Recording-Editor";
 import { createNote } from "../graphql/mutations";
 
 const Container = styled("div")`
+  max-width: 800px;
   margin: 16px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  width: 100%;
 `;
+
 
 const StyledButton = styled(Button)`
   background-color: #74b49b;

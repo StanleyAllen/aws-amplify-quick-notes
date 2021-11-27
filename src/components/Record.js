@@ -9,7 +9,13 @@ import {
   FaMicrophoneAltSlash
 } from "react-icons/fa";
 import mic from "microphone-stream";
+import React from "react";
+import styled from "@emotion/styled";
+import { Button } from "@rebass/emotion";
+import { Label, Input } from "@rebass/forms";
+import { Formik } from "formik";
 
+import Dialog from "./Dialog";
 import RecordingEditor from "./Recording-Editor";
 import { createNote } from "../graphql/mutations";
 
@@ -19,6 +25,60 @@ const Container = styled("div")`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+`;
+
+const StyledButton = styled(Button)`
+  background-color: #74b49b;
+  cursor: pointer;
+`;
+
+const StyledLabel = styled(Label)`
+  color: #74b49b;
+  margin-bottom: 4px;
+`;
+
+const StyledInput = styled(Input)`
+  color: #74b49b;
+  border-radius: 3px;
+  background-color: #f4f9f4;
+`;
+
+const StyledTextarea = styled("textarea")`
+  color: #74b49b;
+  background-color: #f4f9f4;
+  width: 100%;
+  min-height: 80px;
+  border-radius: 3px;
+  resize: vertical;
+`;
+
+const FormInputs = styled("div")`
+  max-height: 450px;
+  overflow: scroll;
+  padding: 16px;
+
+  @media (max-height: 570px) {
+    max-height: 300px;
+  }
+
+  @media (max-height: 675px) {
+    max-height: 350px;
+  }
+`;
+
+const Actions = styled("div")`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 24px;
+`;
+
+const InputContainer = styled("div")`
+  margin-bottom: 16px;
+`;
+
+const Title = styled("h2")`
+  color: #74b49b;
 `;
 
 const pulse = keyframes`
@@ -111,7 +171,7 @@ const RecordComponent = props => {
 
       {showRecordingEditor && (
         <RecordingEditor
-          text="try this"
+          text={recordingText}
           onDismiss={() => {
             setShowRecordingEditor(false);
           }}

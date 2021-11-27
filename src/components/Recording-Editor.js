@@ -54,7 +54,6 @@ const Actions = styled("div")`
 
 const InputContainer = styled("div")`
   margin-bottom: 16px;
-  margin-top: 50px;
 `;
 
 const Title = styled("h2")`

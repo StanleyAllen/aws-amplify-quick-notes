@@ -111,7 +111,7 @@ const RecordComponent = props => {
 
       {showRecordingEditor && (
         <RecordingEditor
-          text={recordingText}
+          text="try this"
           onDismiss={() => {
             setShowRecordingEditor(false);
           }}

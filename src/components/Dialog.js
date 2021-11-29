@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 const StyledDialogOverlay = styled(DialogOverlay)`
   position: fixed;
   top: 1;
-  bottom: 0;
+  bottom: 50;
   left: 0;
   right: 0;
   background-color: hsla(120, 29%, 97%, 0.95);

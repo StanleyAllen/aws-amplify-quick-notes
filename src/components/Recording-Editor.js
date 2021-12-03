@@ -26,7 +26,7 @@ const StyledTextarea = styled("textarea")`
   color: #74b49b;
   background-color: #f4f9f4;
   width: 100%;
-  min-height: 80px;
+  min-height: 570px;
   border-radius: 3px;
   resize: vertical;
 `;

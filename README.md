@@ -14,7 +14,6 @@
 - 🚀 GraphQL
 - 💻 Deploy back end in minutes
 
-![](./example.jpg)
 
 ## Deploy the App
 

@@ -103,7 +103,8 @@ export default () => {
       <StyledTabs index={tabIndex} onChange={index => setTabIndex(index)}>
         <StyledTabList>
           <StyledTab>Notes</StyledTab>
-          <StyledTab>Record</StyledTab>
+          <StyledTab>Create Note</StyledTab>
+          <StyledTab>Composer</StyledTab>          
         </StyledTabList>
         <StyledTabPanels>
           <StyledTabPanel>
@@ -111,6 +112,9 @@ export default () => {
           </StyledTabPanel>
           <StyledTabPanel>
             {tabIndex === 1 && <Record setTabIndex={setTabIndex} />}
+          </StyledTabPanel>
+          <StyledTabPanel>
+            {tabIndex === 2 && <Record setTabIndex={setTabIndex} />}
           </StyledTabPanel>
         </StyledTabPanels>
       </StyledTabs>

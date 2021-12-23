@@ -185,7 +185,7 @@ const pulse = keyframes`
               left: 0;
               position: absolute;
               border-radius: 50%;
-              background-color: #74b49b;
+              background-color: #e9f6f4;
             `,
             isRecording || isConverting
               ? css`
@@ -202,7 +202,7 @@ const pulse = keyframes`
             left: 0;
             position: absolute;
             border-radius: 50%;
-            background-color: #74b49b;
+            background-color: #e9f6f4;
             display: flex;
             cursor: pointer;
           `}
@@ -218,19 +218,19 @@ const pulse = keyframes`
             <FaMicrophoneAltSlash
               size={50}
               style={{ margin: "auto" }}
-              color="#f4f9f4"
+              color="#e9f6f4"
             />
           ) : isRecording ? (
             <FaMicrophone
               size={50}
               style={{ margin: "auto" }}
-              color="#f4f9f4"
+              color="#e9f6f4"
             />
           ) : (
             <FaMicrophoneAlt
               size={50}
               style={{ margin: "auto" }}
-              color="#f4f9f4"
+              color="#e9f6f4"
             />
           )}
         </div>

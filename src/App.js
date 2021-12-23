@@ -9,7 +9,7 @@ import Screens from "./components/Screens";
 const Title = styled("h1")`
   text-align: center;
   text-transform: uppercase;
-  color: #a7d7c5;
+  color: #f9f4f4;
   margin-bottom: 8px;
 `;
 
@@ -43,7 +43,7 @@ const theme = {
     backgroundColor: "#f9f4f4"
   },
   a: {
-    color: "#a7d7c5"
+    color: "#f9f4f4"
   }
 };
 

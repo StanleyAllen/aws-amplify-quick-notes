@@ -23,24 +23,24 @@ const theme = {
     borderRadius: "4px"
   },
   sectionHeader: {
-    color: "#74b49b"
+    color: "#f9f4f4"
   },
   sectionFooterSecondaryContent: {
     color: "#303952"
   },
   inputLabel: {
-    color: "#74b49b"
+    color: "#f9f4f4"
   },
   input: {
     backgroundColor: "#f4f9f4",
-    color: "#74b49b"
+    color: "#f9f4f4"
   },
   hint: {
-    color: "#74b49b"
+    color: "#f9f4f4"
   },
   button: {
     borderRadius: "3px",
-    backgroundColor: "#a7d7c5"
+    backgroundColor: "#f9f4f4"
   },
   a: {
     color: "#a7d7c5"

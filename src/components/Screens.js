@@ -8,7 +8,7 @@ import Notes from "./Notes";
 import Record from "./Record";
 
 const Header = styled("div")`
-  background-color: #ffffff;
+  background-color: #ff4000;
   padding-left: 16px;
   padding-right: 16px;
   display: flex;

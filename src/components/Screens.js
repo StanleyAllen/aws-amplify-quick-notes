@@ -82,7 +82,7 @@ const StyledTab = styled(Tab)`
   background-color: #ffffff;
   font-size: 16px;
   border: none;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid #ff4000;
 `;
 
 export default () => {
@@ -102,8 +102,8 @@ export default () => {
       </Header>
       <StyledTabs index={tabIndex} onChange={index => setTabIndex(index)}>
         <StyledTabList>
-          <StyledTab>Notes</StyledTab>
-          <StyledTab>Create Note</StyledTab>
+          <StyledTab>My Notes</StyledTab>
+          <StyledTab>Shared Notes</StyledTab>
           <StyledTab>Composer</StyledTab>          
         </StyledTabList>
         <StyledTabPanels>
@@ -111,7 +111,7 @@ export default () => {
             {tabIndex === 0 && <Notes setTabIndex={setTabIndex} />}
           </StyledTabPanel>
           <StyledTabPanel>
-            {tabIndex === 1 && <Record setTabIndex={setTabIndex} />}
+            {tabIndex === 1 && <Notes setTabIndex={setTabIndex} />}
           </StyledTabPanel>
           <StyledTabPanel>
             {tabIndex === 2 && <Record setTabIndex={setTabIndex} />}

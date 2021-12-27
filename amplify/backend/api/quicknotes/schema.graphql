@@ -1,6 +1,21 @@
 type Note @model @auth(rules: [{ allow: owner }]) {
   id: ID!
-  title: String!
+  catigory: String!
+  key01: Int!
+  key02: Int!
+  key03: Int!
+  key04: Int!
+  key05: Int!
+  key06: Int!
+  key07: Int!
+  key08: Int!
+  key09: Int!
+  key10: Int!
+  key11: Int!
+  key12: Int!
+  key13: Int!
+  key14: Int!
+  author: String
   text: String!
   createdAt: String
   updatedAt: String

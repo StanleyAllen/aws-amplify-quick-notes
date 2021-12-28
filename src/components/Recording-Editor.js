@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@rebass/emotion";
 import { Label, Input } from "@rebass/forms";
 import { Formik } from "formik";
+import Yup from 'yup';
 
 import Dialog from "./Dialog";
 
@@ -60,18 +61,77 @@ const Title = styled("h2")`
   color: #74b49b;
 `;
 
+const withFormik = Formik({
+  mapPropsToValues: () => ({ color: '' }),
+  validationSchema: Yup.object().shape({
+    color: Yup.string().required('Color is required!'),
+  }),
+  handleSubmit: (values, { setSubmitting }) => {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      setSubmitting(false);
+    }, 1000);
+  },
+  displayName: 'BasicForm', // helps with React DevTools
+});
+
+  const {
+    values,
+    touched,
+    errors,
+    dirty,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    handleReset,
+  } = props;
+
+
+
 export default props => (
   <Dialog onDismiss={props.onDismiss}>
-    <Title>{props.title ? "Edit Note" : "Create Note"}</Title>
+    <Title>{props.category ? "Edit Note" : "Create Note"}</Title>
     <Formik
       initialValues={{
-        title: props.title || "",
+        category: props.category,
+        key01: props.key01,
+        key02: props.key02,
+        key03: props.key03,
+        key04: props.key04,
+        key05: props.key05,
+        key06: props.key06,
+        key07: props.key07,
+        key08: props.key08,
+        key09: props.key09,
+        key10: props.key10,
+        key11: props.key11,
+        key12: props.key12,
+        key13: props.key13,
+        key14: props.key14,
+        author: props.author,
         text: props.text
+
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         props.onSave({
-          title: values.title || `${values.text.substr(0, 20)}...`,
-          text: values.text
+          category: props.category,
+          key01: props.key01,
+          key02: props.key02,
+          key03: props.key03,
+          key04: props.key04,
+          key05: props.key05,
+          key06: props.key06,
+          key07: props.key07,
+          key08: props.key08,
+          key09: props.key09,
+          key10: props.key10,
+          key11: props.key11,
+          key12: props.key12,
+          key13: props.key13,
+          key14: props.key14,
+          author: props.author,
+          text: props.text
         });
         setSubmitting(false);
         resetForm();
@@ -81,15 +141,32 @@ export default props => (
       {({ values, handleSubmit, isSubmitting, handleChange }) => (
         <form onSubmit={handleSubmit}>
           <FormInputs>
-            <InputContainer>
-              <StyledLabel htmlFor="title">Title</StyledLabel>
-              <StyledInput
-                type="text"
-                name="title"
-                value={values.title}
+
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="email" style={{ display: 'block' }}>
+                Color
+              </label>
+              <select
+                name="color"
+                value={values.color}
                 onChange={handleChange}
-              />
-            </InputContainer>
+                onBlur={handleBlur}
+                style={{ display: 'block' }}
+              >
+                <option value="" label="Select Category" />
+                <option value="subjective" label="Subjective" />
+                <option value="objective" label="Objective" />
+                <option value="assessment" label="Assessment" />
+                <option value="plan" label="Plan" />
+              </select>
+              {errors.color &&
+                touched.color &&
+                <div className="input-feedback">
+                  {errors.color}
+                </div>}
+
+              <DisplayFormikState {...props} />
+            </form>
 
             <InputContainer>
               <StyledLabel htmlFor="text">Note</StyledLabel>
@@ -99,6 +176,7 @@ export default props => (
                 onChange={handleChange}
               />
             </InputContainer>
+
           </FormInputs>
 
           <Actions>
@@ -119,3 +197,4 @@ export default props => (
     </Formik>
   </Dialog>
 );
+

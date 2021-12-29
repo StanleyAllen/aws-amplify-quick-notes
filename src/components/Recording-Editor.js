@@ -114,7 +114,6 @@ const MyForm = props => {
         {errors.color}
       </div>}
 
-    <DisplayFormikState {...props} />
     </form>
   );
 };    

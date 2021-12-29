@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@rebass/emotion";
 import { Label, Input } from "@rebass/forms";
 import { Formik } from "formik";
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 import Dialog from "./Dialog";
 
@@ -75,6 +75,8 @@ const withFormik = Formik({
   displayName: 'BasicForm', // helps with React DevTools
 });
 
+const MyForm = props => {
+
   const {
     values,
     touched,
@@ -86,6 +88,38 @@ const withFormik = Formik({
     handleSubmit,
     handleReset,
   } = props;
+
+  return (
+    <form onSubmit={handleSubmit}>
+    <label htmlFor="email" style={{ display: 'block' }}>
+      Color
+    </label>
+    <select
+      name="color"
+      value={values.color}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      style={{ display: 'block' }}
+    >
+      <option value="" label="Select Category" />
+      <option value="subjective" label="Subjective" />
+      <option value="objective" label="Objective" />
+      <option value="assessment" label="Assessment" />
+      <option value="plan" label="Plan" />
+    </select>
+    {errors.color &&
+      touched.color &&
+      <div className="input-feedback">
+        {errors.color}
+      </div>}
+
+    <DisplayFormikState {...props} />
+    </form>
+  );
+};    
+
+const BasicForm = withFormik(MyForm);
+
 
 
 
@@ -142,31 +176,7 @@ export default props => (
         <form onSubmit={handleSubmit}>
           <FormInputs>
 
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="email" style={{ display: 'block' }}>
-                Color
-              </label>
-              <select
-                name="color"
-                value={values.color}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                style={{ display: 'block' }}
-              >
-                <option value="" label="Select Category" />
-                <option value="subjective" label="Subjective" />
-                <option value="objective" label="Objective" />
-                <option value="assessment" label="Assessment" />
-                <option value="plan" label="Plan" />
-              </select>
-              {errors.color &&
-                touched.color &&
-                <div className="input-feedback">
-                  {errors.color}
-                </div>}
-
-              <DisplayFormikState {...props} />
-            </form>
+            <BasicForm />
 
             <InputContainer>
               <StyledLabel htmlFor="text">Note</StyledLabel>

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button } from "@rebass/emotion";
 import { Label, Input } from "@rebass/forms";
 import { Formik } from "formik";
-import Yup from "yup";
+import * as Yup from "yup";
 
 import Dialog from "./Dialog";
 

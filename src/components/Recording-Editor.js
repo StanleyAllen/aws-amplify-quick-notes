@@ -1,4 +1,5 @@
 import React from "react";
+import { render } from 'react-dom';
 import styled from "@emotion/styled";
 import { Button } from "@rebass/emotion";
 import { Label, Input } from "@rebass/forms";

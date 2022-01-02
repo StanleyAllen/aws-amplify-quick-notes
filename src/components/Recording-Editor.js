@@ -61,17 +61,6 @@ const Title = styled("h2")`
   color: #74b49b;
 `;
 
-const withFormik = Formik({
-  mapPropsToValues: () => ({ color: '' }),
-
-  handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 1000);
-  },
-  displayName: 'BasicForm', // helps with React DevTools
-});
 
 const MyForm = props => {
 

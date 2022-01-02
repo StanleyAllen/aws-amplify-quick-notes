@@ -62,7 +62,19 @@ const Title = styled("h2")`
 `;
 
 
+const MyForm = props => {
 
+  const {
+    values,
+    touched,
+    errors,
+    dirty,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    handleReset,
+  } = props;
 
   return (
     <form onSubmit={handleSubmit}>

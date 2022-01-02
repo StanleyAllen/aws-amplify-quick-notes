@@ -63,9 +63,7 @@ const Title = styled("h2")`
 
 const withFormik = Formik({
   mapPropsToValues: () => ({ color: '' }),
-  validationSchema: Yup.object().shape({
-    color: Yup.string().required('Color is required!'),
-  }),
+
   handleSubmit: (values, { setSubmitting }) => {
     setTimeout(() => {
       alert(JSON.stringify(values, null, 2));

@@ -62,50 +62,6 @@ const Title = styled("h2")`
 `;
 
 
-const MyForm = props => {
-
-  const {
-    values,
-    touched,
-    errors,
-    dirty,
-    isSubmitting,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    handleReset,
-  } = props;
-
-  return (
-    <form onSubmit={handleSubmit}>
-    <label htmlFor="email" style={{ display: 'block' }}>
-      Color
-    </label>
-    <select
-      name="color"
-      value={values.color}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      style={{ display: 'block' }}
-    >
-      <option value="" label="Select Category" />
-      <option value="subjective" label="Subjective" />
-      <option value="objective" label="Objective" />
-      <option value="assessment" label="Assessment" />
-      <option value="plan" label="Plan" />
-    </select>
-    {errors.color &&
-      touched.color &&
-      <div className="input-feedback">
-        {errors.color}
-      </div>}
-
-    </form>
-  );
-};    
-
-
-
 
 
 export default props => (
@@ -161,7 +117,7 @@ export default props => (
         <form onSubmit={handleSubmit}>
           <FormInputs>
 
-            <BasicForm />
+            
 
             <InputContainer>
               <StyledLabel htmlFor="text">Note</StyledLabel>

@@ -39,12 +39,12 @@ const StyledLabel = styled(Label)`
 const StyledInput = styled(Input)`
   color: #74b49b;
   border-radius: 3px;
-  background-color: #f4f9f4;
+  background-color: #e9f6f4;
 `;
 
 const StyledTextarea = styled("textarea")`
   color: #74b49b;
-  background-color: #f4f9f4;
+  background-color: #e9f6f4;
   width: 100%;
   min-height: 80px;
   border-radius: 3px;

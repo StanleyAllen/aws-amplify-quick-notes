@@ -9,7 +9,7 @@ import Screens from "./components/Screens";
 const Title = styled("h1")`
   text-align: center;
   text-transform: uppercase;
-  color: #f9f4f4;
+  color: #a7d7c5;
   margin-bottom: 8px;
 `;
 
@@ -23,27 +23,27 @@ const theme = {
     borderRadius: "4px"
   },
   sectionHeader: {
-    color: "#f9f4f4"
+    color: "#74b49b"
   },
   sectionFooterSecondaryContent: {
     color: "#303952"
   },
   inputLabel: {
-    color: "#f9f4f4"
+    color: "#74b49b"
   },
   input: {
     backgroundColor: "#f4f9f4",
-    color: "#f9f4f4"
+    color: "#74b49b"
   },
   hint: {
-    color: "#f9f4f4"
+    color: "#74b49b"
   },
   button: {
     borderRadius: "3px",
-    backgroundColor: "#f9f4f4"
+    backgroundColor: "#a7d7c5"
   },
   a: {
-    color: "#f9f4f4"
+    color: "#a7d7c5"
   }
 };
 

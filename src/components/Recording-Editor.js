@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { Button } from "@rebass/emotion";
 import { Label, Input } from "@rebass/forms";
 import { Formik } from "formik";
+import { SelectField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 
 import Dialog from "./Dialog";
@@ -36,11 +38,9 @@ const FormInputs = styled("div")`
   max-height: 450px;
   overflow: scroll;
   padding: 16px;
-
   @media (max-height: 570px) {
     max-height: 300px;
   }
-
   @media (max-height: 675px) {
     max-height: 350px;
   }
@@ -124,13 +124,30 @@ export default props => (
                 value={values.category}
                 onChange={handleChange}
               />
-            </InputContainer>            
+            </InputContainer>      
+
+            const [value, setValue] = useState('');
+            <InputContainer>
+              <SelectField
+                label="Category"
+                labelHidden={true}
+                value={value}
+                placeholder="Please select a Category"
+                onChange={(e) => setValue(e.target.value)}
+              >
+                <option value="subjective">Subjective</option>
+                <option value="objective">Objective</option>
+                <option value="assessment">Assessment</option>
+                <option value="plan">Plan</option>
+              </SelectField>;      
+              </InputContainer>
 
             <InputContainer>
               <StyledLabel htmlFor="text">Note</StyledLabel>
               <StyledTextarea
                 name="text"
                 value={values.text}
+                value = {values.key01[1] = 1}
                 onChange={handleChange}
               />
             </InputContainer>
@@ -155,4 +172,3 @@ export default props => (
     </Formik>
   </Dialog>
 );
-

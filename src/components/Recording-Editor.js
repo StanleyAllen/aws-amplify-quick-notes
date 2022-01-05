@@ -117,7 +117,14 @@ export default props => (
         <form onSubmit={handleSubmit}>
           <FormInputs>
 
-            
+            <InputContainer>
+              <StyledLabel htmlFor="category">Category</StyledLabel>
+              <StyledTextarea
+                name="category"
+                value={values.category}
+                onChange={handleChange}
+              />
+            </InputContainer>            
 
             <InputContainer>
               <StyledLabel htmlFor="text">Note</StyledLabel>
